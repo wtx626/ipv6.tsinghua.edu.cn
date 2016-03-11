@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta content="text/css" http-equiv="Content-Style-Type" />
+	<title>首页 - 清华大学 IPv6</title>
+	<link rel="shortcut icon" href="/static/img/favicon.ico" />
+	<link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/static/css/style.css" />
+	<script src="/static/js/jquery-1.12.1.min.js"></script>
+</head>
+
+<body>
+<div class="container clearfix" id="main-container">
+	<div id="header">
+<nav class="clearfix">
+	<img src="/static/img/title.png" />
+	<ul class="nav nav-pills pull-right">
+		<li class="active"><a href="/">首页</a></li>
+		<li><a href="/isatap/">ISATAP 配置</a></li>
+	</ul>
+</nav>
+<ol class="breadcrumb">
+	<li><a href="/">清华大学 IPv6</a></li>
+	
+	<li class="active">首页</li>	
+</ol>
+</div>
+
+	<div class="hidden-xs pull-right" id="sideblock">
+<div class="alert">
+	<p>您正在使用 <span class="ip-family"></span> 访问本站</p>
+	<p>您的 <span class="ip-family"></span> 地址是: </p>
+	<span class="ip-addr"></span>
+</div>
+<div class="alert">
+	<p>
+	<a href="http://its.tsinghua.edu.cn/">清华大学信息化技术中心</a>
+	</p>
+	<p>
+	联系电话 62784859
+	</p>
+	<p>
+	电子邮箱 support@tsinghua.edu.cn
+	</p>
+	<p>本站内容由 <a href="https://tuna.moe/">清华大学TUNA协会</a> 负责维护</p>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	$.getJSON("/ip.php", function(data){
+		var sideblock = $("#sideblock");
+		var ip = data.ip_addr, ip_family="Unknown";
+		if (ip.indexOf(':') >= 0) {
+			ip_family = "IPv6";
+		} else if (ip.indexOf('.') >= 0) {
+			ip_family = "IPv4";
+		}
+		sideblock.find(".ip-family").text(ip_family);
+		sideblock.find(".ip-addr").text(ip);
+	});
+});
+</script>
+</div>
+
+	<div id="content">
+	<h2 id="ipv6">什么是 IPv6</h2>
+
+<p>IPv6指互联网协议（IP）第6版。目前大家上网主要使用互联网协议第四版，即IPv4。
+在全球互联网高度发展的今天，IPv4 地址资源已经枯竭，互联网正在经历从IPv4网络向IPv6网络的过渡。
+IPv4地址是类似 <code class="highlighter-rouge">A.B.C.D</code> 的格式，共32位，用 <code class="highlighter-rouge">.</code> 分成四段，用10进制表示；
+而IPv6地址类似<code class="highlighter-rouge">X:X:X:X:X:X:X:X</code>的格式，它是128位的，用<code class="highlighter-rouge">:</code>分成8段，用16进制表示。
+<a href="http://www.ietf.org/rfc/rfc2373.txt">RFC2373</a> 中详细定义了IPv6地址，按照定义，一个完整的IPv6地址的表示法：<code class="highlighter-rouge">xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx</code>。</p>
+
+<h2 id="ipv4ipv6">IPv4地址和IPv6地址的区别</h2>
+
+<table border="1" cellspacing="0" cellpadding="0">
+	<tr>
+		<td><p align="left"><strong>IPv4</strong><strong>地址</strong><strong> </strong> </p></td>
+		<td><p align="left"><strong>IPv6</strong><strong>地址</strong><strong> </strong> </p></td>
+	</tr>
+	<tr>
+		<td><p align="left">组播地址（224.0.0.0/4） </p></td>
+		<td><p align="left">IPv6组播地址（FF00::/8） </p></td>
+	</tr>
+	<tr>
+		<td><p align="left">广播地址 </p></td>
+		<td><p align="left">无，只有任播（ anycast）地址 </p></td>
+	</tr>
+	<tr>
+		<td><p align="left">未指定地址为 0.0.0 .0 </p></td>
+		<td><p align="left">未指定地址为 :: </p></td>
+	</tr>
+	<tr>
+		<td><p align="left">回路地址为 127.0.0.1 </p></td>
+		<td><p align="left">回路地址为 ::1 </p></td>
+	</tr>
+	<tr>
+		<td><p align="left">公用 IP地址 </p></td>
+		<td><p align="left">可汇聚全球单播地址 </p></td>
+	</tr>
+	<tr>
+		<td><p align="left">私有地址（10.0.0.0/8、172.16.0.0/12、192.168.0.0/16） </p></td>
+		<td><p align="left">本地站点地址（ FEC0::/48） </p></td>
+	</tr>
+	<tr>
+		<td><p align="left">Microsoft自动专用IP寻址自动配置的地址（169.254.0.0/16） </p></td>
+		<td><p align="left">本地链路地址（ FE80::/64） </p></td>
+	</tr>
+	<tr>
+		<td><p align="left">表达方式：点分间隔十进制 </p></td>
+		<td><p align="left">表达方式：冒号间隔十六进制式 </p></td>
+	</tr>
+	<tr>
+		<td><p align="left">子网掩码表示：以点阵十进制表示法或前缀长度表示法（CIDR） </p></td>
+		<td><p align="left">子网掩码表示：仅使用前缀长度表示法（CIDR） </p></td>
+	</tr>
+</table>
+
+<h2 id="ipv6-1">清华哪些区域有IPv6网络服务？</h2>
+
+<p>清华大学校园网主干网、学生宿舍网、教师宿舍网已经全部支持 IPv6，各院系自建的局域网也基本都支持IPv6。如所在局域网不支持IPv6，也可以通过清华大学的ISATAP隧道服务访问IPv6资源。</p>
+
+<h2 id="ipv6-2">如何使用IPv6?</h2>
+
+<p>Win7以上的操作系统和MAC系统都自带安装了IPv6协议栈，而且默认都是自动获取IPv6地址，不需要任何设置。</p>
+
+<h2 id="ipv6ipv4">为什么访问IPv6还会产生IPv4流量？</h2>
+
+<p>我们访问的IPv6网站往往都是IPv4和IPv6双栈运行的。大多数用户使用IPv6的时候跑IPv4流量都是用μTorrent下载IPv6分享站点的资源，然后在设置的时候没有通过启用IPfilter规则来屏蔽IPv4流量，并且没有断开IPv4的认证。因此，如果想访问纯IPv6资源，希望避免IPv4的流量，可以直接断开IPv4的认证或者索性禁用IPv4的协议，如果是用μTorrent下载东西，建议启用μTorrent的IPfilter规则屏蔽IPv4流量，主流的BT站点都有相关教程。</p>
+
+<h2 id="ipv6-3">有哪些常用的IPv6资源？</h2>
+
+<ul>
+  <li>清华大学 TUNA 镜像站:  <a href="https://mirrors.tuna.tsinghua.edu.cn/">https://mirrors.tuna.tsinghua.edu.cn/</a></li>
+  <li>CNGI高校驻地网: <a href="http://www.6rank.edu.cn">http://www.6rank.edu.cn</a></li>
+  <li>北京邮电大学(北邮人BT): <a href="http://bt.byr.edu.cn">http://bt.byr.edu.cn</a></li>
+  <li>北京交通大学(晨光BT): <a href="http://ipv6.cgbt.cn">http://ipv6.cgbt.cn</a></li>
+  <li>东北大学(六维空间): <a href="http://bt.neu6.edu.cn">http://bt.neu6.edu.cn</a></li>
+  <li>上海大学(乐乎论坛): <a href="http://bt.shu6.edu.cn/index.php">http://bt.shu6.edu.cn/index.php</a></li>
+</ul>
+
+<h2 id="ip">如何确认本机获取方式为自动获得IP地址？</h2>
+
+<p>控制面板→网络和Internet→打开“网络和共享中心”→更改适配器设置→双击“本地连接”→属性→单击“Internet协议版本6（TCP/IPv6）”→确认IP地址和DNS服务器地址都是自动获取→确定→关闭→关闭。</p>
+
+<p><img src="/static/img/image1.jpg" alt="" />
+<img src="/static/img/image2.jpg" alt="" /></p>
+
+<h2 id="ipv6-4">如何查看本机IPv6地址获取情况？</h2>
+
+<p>直接在开始菜单里所有程序中选择命令提示符cmd.exe或者再下方搜索框里输入cmd，然后回车，进入命令提示符窗口。</p>
+
+<p><img src="/static/img/image3.jpg" alt="" /></p>
+
+<p>输入<code class="highlighter-rouge">ipconfig /all</code>命令，可以查看本机是否获取到正确的IPv6地址（<code class="highlighter-rouge">2402:f000</code>开头），由于我校IPv6的DNS服务器搭建在双栈链路之上，无需专门指定IPv6的DNS服务器参数，沿用IPv4的DNS服务器设置即可，通常为自动获取。</p>
+
+<h2 id="ipv6-5">如何报告IPv6问题？</h2>
+
+<p>请联系校园网用户服务部门，并提供如下信息，以便于定位问题。</p>
+
+<ol>
+  <li>上网位置、上网帐号、联系方式，本机IPv6地址，命令提示符下分别输入<code class="highlighter-rouge">ipconfig /all</code>的结果，输入<code class="highlighter-rouge">arp -a</code>的结果。</li>
+  <li>故障时间，故障现象，系统版本，网卡型号。周围同环境下其他人能否使用ipv6，把个人电脑换到其他端口上，重新获取ipv6地址后，现象是否重现。</li>
+  <li><code class="highlighter-rouge">ping -n 30 ipv6.tsinghua.edu.cn</code>、<code class="highlighter-rouge">tracert www.edu.cn</code> 或其他IPv6网站的结果。</li>
+</ol>
+
+
+	</div>
+
+	<div id="footer">
+	<hr />
+	<p class="text-center">Copyright &copy; 2016 Tsinghua University All rights reserved. 清华大学 版权所有 </p>
+</div>
+
+</div>
+</body>
+</html>

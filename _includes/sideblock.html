@@ -1,0 +1,34 @@
+<div class="hidden-xs pull-right" id="sideblock">
+<div class="alert">
+	<p>您正在使用 <span class="ip-family"></span> 访问本站</p>
+	<p>您的 <span class="ip-family"></span> 地址是: </p>
+	<span class="ip-addr"></span>
+</div>
+<div class="alert">
+	<p>
+	<a href="http://its.tsinghua.edu.cn/">清华大学信息化技术中心</a>
+	</p>
+	<p>
+	联系电话 62784859
+	</p>
+	<p>
+	电子邮箱 support@tsinghua.edu.cn
+	</p>
+	<p>本站内容由 <a href="https://tuna.moe/">清华大学TUNA协会</a> 负责维护</p>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	$.getJSON("/ip.php", function(data){
+		var sideblock = $("#sideblock");
+		var ip = data.ip_addr, ip_family="Unknown";
+		if (ip.indexOf(':') >= 0) {
+			ip_family = "IPv6";
+		} else if (ip.indexOf('.') >= 0) {
+			ip_family = "IPv4";
+		}
+		sideblock.find(".ip-family").text(ip_family);
+		sideblock.find(".ip-addr").text(ip);
+	});
+});
+</script>
+</div>

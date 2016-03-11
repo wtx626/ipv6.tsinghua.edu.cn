@@ -1,0 +1,16 @@
+# Site settings
+title: 清华大学 IPv6 
+baseurl: "" # the subpath of your site, e.g. /blog
+permalink: "/:categories/:title/"
+
+# Build settings
+highlighter: rouge
+markdown: kramdown
+kramdown:
+    input: GFM
+    hard_wrap: false
+
+sass:
+    sass_dir: static/css
+
+exclude: [Gemfile, Gemfile.lock, README.md]

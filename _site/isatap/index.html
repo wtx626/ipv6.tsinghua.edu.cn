@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta content="text/css" http-equiv="Content-Style-Type" />
+	<title>IPv6 ISATAP 配置说明 - 清华大学 IPv6</title>
+	<link rel="shortcut icon" href="/static/img/favicon.ico" />
+	<link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/static/css/style.css" />
+	<script src="/static/js/jquery-1.12.1.min.js"></script>
+</head>
+
+<body>
+<div class="container clearfix" id="main-container">
+	<div id="header">
+<nav class="clearfix">
+	<img src="/static/img/title.png" />
+	<ul class="nav nav-pills pull-right">
+		<li><a href="/">首页</a></li>
+		<li class="active"><a href="/isatap/">ISATAP 配置</a></li>
+	</ul>
+</nav>
+<ol class="breadcrumb">
+	<li><a href="/">清华大学 IPv6</a></li>
+	
+	<li class="active">IPv6 ISATAP 配置说明</li>	
+</ol>
+</div>
+
+	<div class="hidden-xs pull-right" id="sideblock">
+<div class="alert">
+	<p>您正在使用 <span class="ip-family"></span> 访问本站</p>
+	<p>您的 <span class="ip-family"></span> 地址是: </p>
+	<span class="ip-addr"></span>
+</div>
+<div class="alert">
+	<p>
+	<a href="http://its.tsinghua.edu.cn/">清华大学信息化技术中心</a>
+	</p>
+	<p>
+	联系电话 62784859
+	</p>
+	<p>
+	电子邮箱 support@tsinghua.edu.cn
+	</p>
+	<p>本站内容由 <a href="https://tuna.moe/">清华大学TUNA协会</a> 负责维护</p>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	$.getJSON("/ip.php", function(data){
+		var sideblock = $("#sideblock");
+		var ip = data.ip_addr, ip_family="Unknown";
+		if (ip.indexOf(':') >= 0) {
+			ip_family = "IPv6";
+		} else if (ip.indexOf('.') >= 0) {
+			ip_family = "IPv4";
+		}
+		sideblock.find(".ip-family").text(ip_family);
+		sideblock.find(".ip-addr").text(ip);
+	});
+});
+</script>
+</div>
+
+	<div id="content">
+	<h2 id="ipv6-isatap">IPv6 ISATAP配置說明</h2>
+
+<h3 id="isatap">什么是ISATAP隧道?</h3>
+
+<p>ISATAP全名是 Intra-Site Automatic Tunnel Addressing Protocol，是一种IPv6隧道技术，使用户可以在IPv4网络上访问IPv6资源。具体技术原理参见（draft-ietf-ngtrans-ISATAP-23.txt）。</p>
+
+<h3 id="isatap-1">清华大学ISATAP隧道信息</h3>
+
+<ul>
+  <li>清华大学 ISATAP隧道路由器的IPv4地址是：<code class="highlighter-rouge">isatap.tsinghua.edu.cn</code></li>
+  <li>用户设置 ISATAP隧道的接入点为：<code class="highlighter-rouge">isatap.tsinghua.edu.cn</code></li>
+  <li>清华大学 ISATAP 隧道IPv6地址前缀为：<code class="highlighter-rouge">2402:f000:1:1501::/64</code></li>
+</ul>
+
+<h3 id="isatap-2">清华大学ISATAP隧道配置方法</h3>
+
+<h4 id="windowswin7">Windows环境（以win7为例）</h4>
+
+<p>以管理员身份运行cmd命令，进入命令行模式C:&gt;</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>输入 netsh
+输入 int ipv6 isatap（说明：进入isatap配置模式）
+输入 set router isatap.tsinghua.edu.cn
+输入 set state enable（说明：激活isatap隧道）
+输入 exit（说明：退出netsh）
+</code></pre>
+</div>
+
+<p>右键点击桌面“计算机”图标，选择“管理”，展开“服务和应用程序”，选择“服务”，确认“ip helper”服务已开启。</p>
+
+<p>此后，通过 <code class="highlighter-rouge">ipconfig</code> 应该可以看到一个 <code class="highlighter-rouge">2402:f000:1:1501:</code> 为前缀的v6地址，hostid为<code class="highlighter-rouge">0:5efe:x.x.x.x</code>， 其中<code class="highlighter-rouge">x.x.x.x</code> 为您的真实的IPv4地址，即可访问IPv6资源。</p>
+
+<h4 id="linux-">Linux 环境</h4>
+
+<p>Linux内核版本在2.2.0以后通常支持IPv6，请查看是否存在/proc/net/if_inet6文件，以确定您的系统是否支持IPv6，如果该文件不存在，可尝试如下命令加载IPv6模块：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># modprobe ipv6
+</code></pre>
+</div>
+
+<p>成功加载后就可以配置IPv6了：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># ifconfig  eth0  inet6 add IPV6ADDR  (IPV6ADDR为要临时设备的IPv6地址)
+# route -A inet6  add default  gw  IPV6GATEWAY dev ethX  (为网络设备ethX添加IPv6网关IPV6GATEWAY地址)
+# ping6 ipv6.tsinghua.edu.cn
+</code></pre>
+</div>
+
+<p>如果Fedora9换成了2.6.25kernel都是支持ISATAP方式的ipv6tunnel接入的。配置方法如下：</p>
+
+<p>1.首先要保证 kernel 支持ipv6</p>
+
+<p>2.接着编辑 <code class="highlighter-rouge">/etc/sysconfig/network</code> ，增加下面这行</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>IPV6_DEFAULTGW=youripv6gateway
+</code></pre>
+</div>
+
+<p>3.然后再编辑<code class="highlighter-rouge">/etc/sysconfig/network-scripts/ifcfg-sit1</code>, 内容如下：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>DEVICE=sit1
+ONBOOT=yes
+IPV6INIT=yes
+IPV6TUNNELIPV4=yourisataptunnelIP
+IPV6TUNNELIPV4LOCAL=yourlocalipv4ip
+IPV6ADDR=youripv6address
+</code></pre>
+</div>
+
+<p>4.最后是ifupsit1</p>
+
+<p>需注意，ifup-sit不会创建对应的sit1设备，先得手动创建以后才有效的。</p>
+
+<p>这样 ISATAP就配置好了！</p>
+
+<h4 id="mac-osx">Mac OSX环境</h4>
+
+<ol>
+  <li>下载ISATAP client for Mac OS X
+地址：http://www.momose.org/macosx/isatap.html</li>
+  <li>解压ISATAP client
+% cd /usr/local
+% sudo tar xfz ~/Downloads/macosx-isatap-*.tar.gz</li>
+  <li>更改权限
+% sudo chown -R root:wheel /usr/local/isatap
+% sudo chmod -R 644 /usr/local/isatap/isatap.kext</li>
+  <li>配置ISATAP</li>
+</ol>
+
+<p>配置ist0和得到IPv4地址（你需要制定现在使用的网卡，比如en0）
+注：config-ist.sh有一行需要更改以适应清华ipv6，将第50行改为：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>${ifconfig} ist0 inet6 2001:da8:200:900e:0:5efe:${v4addr} prefixlen 64
+</code></pre>
+</div>
+
+<p>然后再执行：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>% sudo ./config-ist.sh en0
+</code></pre>
+</div>
+
+<p>指定ISATAP router</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>% sudo ./ifconfig ist0 isataprtr 59.66.4.50
+% sudo ./rtsold.sh &amp;
+</code></pre>
+</div>
+
+<p>设置路由表</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>% sudo route delete -inet6 default
+注：在执行上面命令之前可以用netstat -r查看ipv6路由表上是否有default这一项，没有则不用执行上面命令
+% sudo route add -inet6 default -interface ist0
+</code></pre>
+</div>
+
+<p>启动IPv6</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>% sudo ifconfig ist0 up
+</code></pre>
+</div>
+
+<p>关闭IPv6</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>% sudo ifconfig ist0 down
+</code></pre>
+</div>
+
+<p>这样 ISATAP就配置好了！</p>
+
+	</div>
+
+	<div id="footer">
+	<hr />
+	<p class="text-center">Copyright &copy; 2016 Tsinghua University All rights reserved. 清华大学 版权所有 </p>
+</div>
+
+</div>
+</body>
+</html>

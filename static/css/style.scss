@@ -1,0 +1,66 @@
+---
+---
+
+$color_thu_purple: #82318E;
+$color_thu_light: lighten($color_thu_purple, 55);
+$color_foreground: #222;
+$color_text: $color_foreground;
+$color_main_background: #fff;
+
+
+body {
+	background-color: $color_thu_purple;
+	color: $color_text;
+}
+
+#main-container {
+	margin-top: 20px;
+	padding-top: 20px;
+	background: $color_main_background;
+	border-radius: 4px;
+	.breadcrumb {
+		margin-top: 5px;
+		background-color: $color_thu_light;
+	}
+}
+
+#header {
+	img {
+		margin-top: -10px;	
+	}
+	hr {
+		margin-top: 3px;	
+	}
+}
+
+#sideblock {
+	width: 300px;
+	a, a:hover, a:visited {
+		color: darken($color_thu_purple, 20);
+	}
+	.panel, .alert {
+		background-color: $color_thu_light;
+		color: darken($color_thu_purple, 20);
+	}
+	margin-left: 20px;
+}
+
+#content {
+	h2,h3,h4,h5 {
+		font-weight: bold;
+	}
+	h2 {
+		font-size: 1.5em;
+	}
+	h3 {
+		font-size: 1.3em;	
+	}
+	h4 {
+		font-size: 1.2em;	
+	}
+
+}
+
+#footer {
+	color: lighten($color_text, 20);
+}

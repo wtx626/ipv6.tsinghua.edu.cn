@@ -1,0 +1,14 @@
+<div id="header">
+<nav class="clearfix">
+	<img src="/static/img/title.png" />
+	<ul class="nav nav-pills pull-right">
+		<li{%if page.active_nav == "home"%} class="active"{%endif%}><a href="/">首页</a></li>
+		<li{%if page.active_nav == "isatap"%} class="active"{%endif%}><a href="/isatap/">ISATAP 配置</a></li>
+	</ul>
+</nav>
+<ol class="breadcrumb">
+	<li><a href="/">{{site.title}}</a></li>
+	{% if page.category %}<li>{{page.category}}</li>{% endif %}
+	<li class="active">{{page.title}}</li>	
+</ol>
+</div>
