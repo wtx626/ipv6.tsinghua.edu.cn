@@ -5,7 +5,7 @@ active_nav: isatap
 permalink: /isatap/
 ---
 
-## IPv6 ISATAP配置說明
+## IPv6 ISATAP配置说明
 
 ###  什么是ISATAP隧道?
 
@@ -39,6 +39,18 @@ netsh int ipv6 isatap set state enable
 + 尝试重启系统。
 
 #### Linux 环境
+
+##### Ubuntu
+
+官方源（或[TUNA源](https://mirrors.tuna.tsinghua.edu.cn/ubuntu)）中的`isatapd`软件包可以使用，实现自动配置。
+
+```
+sudo apt-get update
+sudo apt-get install isatapd
+sudo service isatapd start
+```
+
+##### 其他发行版
 
 Linux内核版本在2.2.0以后通常支持IPv6，请查看是否存在/proc/net/if_inet6文件，以确定您的系统是否支持IPv6，如果该文件不存在，可尝试如下命令加载IPv6模块：
 
@@ -82,7 +94,7 @@ IPV6ADDR=youripv6address
 
 这样 ISATAP就配置好了！
 
-#### Mac OSX环境
+#### Mac OS X环境
 
 1. 下载ISATAP client for Mac OS X
 地址：http://www.momose.org/macosx/isatap.html
