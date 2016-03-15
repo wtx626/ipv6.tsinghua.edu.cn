@@ -21,6 +21,6 @@ return$ip;
 $ip=getIP();
 echo "{\"ip_addr\": \"$ip\"}";
 
-header('Content-type: application/json');
+header('Content-Type: application/json');
 exit;
 ?>
