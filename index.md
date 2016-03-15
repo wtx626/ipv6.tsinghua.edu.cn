@@ -80,7 +80,7 @@ Win7以上的操作系统和MAC系统都自带安装了IPv6协议栈，而且默
  - 北京交通大学(晨光BT): <http://ipv6.cgbt.cn>
  - 东北大学(六维空间): <http://bt.neu6.edu.cn>
  - 上海大学(乐乎论坛): <http://bt.shu6.edu.cn/index.php>
-
+ - IPv6 测试站: <http://test-ipv6.com>
 
 ## 如何确认本机获取方式为自动获得IP地址？ 
 
