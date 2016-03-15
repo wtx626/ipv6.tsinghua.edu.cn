@@ -76,7 +76,7 @@ Win7以上的操作系统和MAC系统都自带安装了IPv6协议栈，而且默
 
  - 清华大学 TUNA 镜像站:  <https://mirrors.tuna.tsinghua.edu.cn/>
  - CNGI高校驻地网: <http://www.6rank.edu.cn>
- - 北京邮电大学(北邮人BT): <http://bt.byr.edu.cn>
+ - 北京邮电大学(北邮人BT): <http://bt.byr.cn>
  - 北京交通大学(晨光BT): <http://ipv6.cgbt.cn>
  - 东北大学(六维空间): <http://bt.neu6.edu.cn>
  - 上海大学(乐乎论坛): <http://bt.shu6.edu.cn/index.php>
