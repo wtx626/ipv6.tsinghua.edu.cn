@@ -17,7 +17,8 @@ OpenWRT 是一种嵌入式 Linux 操作系统，广泛应用于家用路由器/�
 OpenWRT IPv6 NAT 配置部分，由 [@Blaok](https://blog.blaok.me/) 贡献。
 
 ### 零: 安装内核模块和有用的软件包
-`ip kmod-ipt-nat6 kmod-ip6tables luci-ipv6 iputils-traceroute6`
+
+`opkg install ip kmod-ipt-nat6 kmod-ip6tables luci-ipv6 iputils-traceroute6`
 
 ### 壹: 打开 OpenWRT IPv6 私网地址分配
 
