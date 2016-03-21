@@ -18,7 +18,9 @@ OpenWRT IPv6 NAT 配置部分，由 [@Blaok](https://blog.blaok.me/) 贡献。
 
 ### 零: 安装内核模块和有用的软件包
 
-`opkg install ip kmod-ipt-nat6 kmod-ip6tables luci-ipv6 iputils-traceroute6`
+```
+opkg install ip kmod-ipt-nat6 kmod-ip6tables luci-ipv6 iputils-traceroute6
+```
 
 ### 壹: 打开 OpenWRT IPv6 私网地址分配
 
@@ -27,6 +29,7 @@ OpenWRT IPv6 NAT 配置部分，由 [@Blaok](https://blog.blaok.me/) 贡献。
 ### 贰: 打开 IPv6 NAT
 
 客户端有了正确的地址以后，需要在路由器上打开IPv6 NAT。OpenWRT默认的防火墙配置不会管IPv6的nat表，一般是在`/etc/firewall.user`里面加上
+
 ```
 WAN6=eth0
 LAN=br-lan
