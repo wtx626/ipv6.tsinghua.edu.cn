@@ -13,4 +13,4 @@ kramdown:
 sass:
     sass_dir: static/css
 
-exclude: [Gemfile, Gemfile.lock, README.md]
+exclude: [Gemfile, Gemfile.lock, README.md, deploy.sh]
