@@ -5,7 +5,7 @@ active_nav: home
 permalink: /openwrt/
 ---
 
-# OpenWRT 路由器作为 IPv6 网关的置
+# OpenWRT 路由器作为 IPv6 网关的配置
 
 OpenWRT 是一种嵌入式 Linux 操作系统，广泛应用于家用路由器/网关。本文将介绍几种在清华校园网中，使用 OpenWRT 路由器为接入设备提供 IPv6 服务的配置方法。
 
