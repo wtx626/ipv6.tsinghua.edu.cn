@@ -22,7 +22,7 @@ OpenWRT IPv6 NAT 配置部分，由 [@Blaok](https://blog.blaok.me/) 贡献。
 ip kmod-ipt-nat6 kmod-ip6tables luci-ipv6 iputils-traceroute6
 ```
 
-`kmod`开头的内核模块一般无法通过opkg直接安装，推荐在编译固件时就将这些软件包放入固件
+`kmod`开头的内核模块一般无法通过opkg直接安装，其他软件包虽然可以通过`opkg install`直接安装，但会多占路由器存储空间，推荐在编译固件时就将这些软件包都放入固件
 
 ### 壹: 打开 OpenWRT IPv6 私网地址分配
 
