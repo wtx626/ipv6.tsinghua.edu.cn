@@ -123,8 +123,8 @@ fi
 if [ -n "$LOCAL_IP" ]; then 
     ifconfig gif0 create
     ifconfig gif0 tunnel $LOCAL_IP 166.111.21.1 
-    ifconfig gif0 inet6 2402:f000:1:1501:200:5efe:$LOCAL_IP prefixlen 64 
-    route add -inet6 default 2402:f000:1:1501::1 
+    ipconfig set gif0 MANUAL-V6 2402:f000:1:1501:200:5efe:$LOCAL_IP 64
+    route add -inet6 ::/0 -interface gif0
 fi
 ```
 
@@ -140,8 +140,8 @@ sudo chmod +x /usr/local/bin/thu6tunnel.sh
 IP4="我的IPv4地址"  # 这里不能有空格
 sudo ifconfig gif0 create
 sudo ifconfig gif0 tunnel $IP4 166.111.21.1
-sudo ifconfig gif0 inet6 2402:f000:1:1501:200:5efe:$IP4 prefixlen 64 
-sudo route add -inet6 default 2402:f000:1:1501::1 
+sudo ipconfig set gif0 MANUAL-V6 2402:f000:1:1501:200:5efe:$LOCAL_IP 64
+sudo route add -inet6 ::/0 -interface gif0
 ```
 
 这样 ISATAP就配置好了！ 
@@ -160,4 +160,3 @@ ping6 ipv6.tsinghua.edu.cn
 ```
 
 验证接入。
-
