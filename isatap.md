@@ -134,13 +134,19 @@ fi
 sudo chmod +x /usr/local/bin/thu6tunnel.sh
 ```
 
+用root权限运行脚本
+
+```
+sudo /usr/local/bin/thu6tunnel.sh
+```
+
 或者，打开终端，单独输入以下命令:
 
 ```shell
 IP4="我的IPv4地址"  # 这里不能有空格
 sudo ifconfig gif0 create
 sudo ifconfig gif0 tunnel $IP4 166.111.21.1
-sudo ipconfig set gif0 MANUAL-V6 2402:f000:1:1501:200:5efe:$LOCAL_IP 64
+sudo ipconfig set gif0 MANUAL-V6 2402:f000:1:1501:200:5efe:$IP4 64
 sudo route add -inet6 ::/0 -interface gif0
 ```
 
