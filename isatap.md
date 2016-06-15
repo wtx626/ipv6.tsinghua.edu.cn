@@ -17,7 +17,7 @@ ISATAP全名是 Intra-Site Automatic Tunnel Addressing Protocol，是一种IPv6�
 
 ## 清华大学ISATAP隧道配置方法
 
-### Windows环境（Windows 7及以上系统适用）
+### Windows 环境（Windows 7及以上系统适用）
 
 以管理员身份运行cmd命令，进入命令行模式，输入如下命令
 
@@ -38,18 +38,6 @@ netsh int ipv6 isatap set state enable
 + 尝试重启系统。
 
 ### Linux 环境
-
-#### Ubuntu
-
-官方源（或[TUNA源](https://mirrors.tuna.tsinghua.edu.cn/ubuntu)）中的`isatapd`软件包可以使用，实现自动配置。
-
-```
-sudo apt-get update
-sudo apt-get install isatapd
-sudo service isatapd start
-```
-
-#### 其他发行版
 
 Linux内核版本在 2.2.0 以后通常支持IPv6，请查看是否存在 `/proc/net/if_inet6` 文件，以确定您的系统是否支持IPv6，如果该文件不存在，可尝试如下命令加载IPv6模块：
 
