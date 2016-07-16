@@ -14,19 +14,23 @@ OpenWRT 是一种嵌入式 Linux 操作系统，广泛应用于家用路由器/�
 ## IPv6 NAT
 
 虽然 IETF 的设计中，IPv6 不再有 NAT (网络地址转换), 但 Linux 内核从 3.7 版本开始实现了 IPv6 的 NAT。早年也曾有过 NAT66 等非官方项目，但缺乏维护，目前已经不再推荐使用。
-OpenWRT IPv6 NAT 配置部分，由 [@Blaok](https://blog.blaok.me/) 贡献。
+OpenWRT IPv6 NAT 配置部分，由 [@Blaok](https://github.com/Blaok) 贡献。
 
 ### 零: 检查内核模块和有用的软件包
 
 ```
-ip kmod-ipt-nat6 kmod-ip6tables luci-ipv6 iputils-traceroute6
+ip6tables kmod-ipv6 kmod-ipt-nat6 kmod-ip6tables kmod-ip6tables-extra luci-proto-ipv6 iputils-traceroute6
 ```
 
 `kmod`开头的内核模块一般无法通过opkg直接安装，其他软件包虽然可以通过`opkg install`直接安装，但会多占路由器存储空间，推荐在编译固件时就将这些软件包都放入固件
 
+上述软件包除`kmod-ipv6`外并非必须。`kmod-ipt-nat6`提供IPv6 NAT支持，`ip6tables kmod-ip6tables kmod-ip6tables-extra`等提供IPv6防火墙，`luci-proto-ipv6`为LuCI提供IPv6设置选项，`iputils-traceroute6`为IPv6提供traceroute功能(`mtr`是个不错的支持双栈的`traceroute`替代品，如果路由器存储空间够大的话)
+
 ### 壹: 打开 OpenWRT IPv6 私网地址分配
 
  OpenWRT默认会分配IPv6私网地址，在`Network->Interfaces`页面底下有个`Global network options`，`IPv6 ULA-Prefix`这里应该有一个随机的`fd`开头的`/64`地址，LAN客户端应该能自动获得这个地址范围内的IPv6地址，DHCPv6和SLAAC默认都开了
+
+ 为了让OpenWRT后面的设备始终能够获得IPv6网关，需要在`Network->Interfaces->LAN`下方的`DHCP Server`部分的`IPv6 Settings`部分，勾选`Always announce default router`。否则，由于默认分配的是私网地址，OpenWRT不会向下游设备公布IPv6默认路由(即网关)，可能导致路由器上IPv6连通但下游设备不通的情况 (感谢[@terro](https://github.com/terro)提醒)
 
 ### 贰: 打开 IPv6 NAT
 
