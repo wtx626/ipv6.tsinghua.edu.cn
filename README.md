@@ -2,12 +2,9 @@
 
 http://ipv6.tsinghua.edu.cn/ 主页
 
----
-layout: default 
-title: IPv6 ISATAP 配置说明
-active_nav: isatap
-permalink: /isatap/
----
+|layout   |title              |active_nav|permalink|
+|:------:|:------:|:------:|:------:|
+|default  |IPv6 ISATAP 配置说明|isatap    |/isatap/|
 
 ##  什么是ISATAP隧道?
 
